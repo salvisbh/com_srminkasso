@@ -15,7 +15,7 @@
     </install>
 
 	<administration>
-		<menu img="class:component">SRM Inkasso</menu>
+        <menu img="components/com_srminkasso/assets/images/srminkasso_s.png">SRM Inkasso</menu>
 
         <files folder="admin">
             <filename>srminkasso.php</filename>

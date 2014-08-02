@@ -62,6 +62,12 @@ class SrmInkassoHelper {
         JText::_('Templates'),
         'index.php?option=com_srminkasso&view=templates', $name == 'templates'
         		);
+
+        /* Tab "SrmInkasso" */
+        JSubMenuHelper::addEntry(
+            JText::_('Info'),
+            'index.php?option=com_srminkasso&view=info', $name == 'info'
+        );
         
     }
 

@@ -23,7 +23,7 @@ class SrmInkassoController extends JController
 	/**
 	 * @var string Standardview
 	 */
-	protected $default_view = 'positions';
+	protected $default_view = 'info';
 
 	/**
 	 * Ausgabe der View leistungsarten.

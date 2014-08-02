@@ -93,6 +93,12 @@
             <fileset dir="views">
                 <include name="**" />
             </fileset>
+            <filterchain>
+                <replacetokens begintoken="%%" endtoken="%%">
+                    <token key="version" value="${version}" />
+                    <token key="builddate" value="${DATE}" />
+                </replacetokens>
+            </filterchain>
         </copy>
 
     </target>
