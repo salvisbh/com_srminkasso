@@ -79,6 +79,10 @@ class SrmInkassoViewBillRuns extends JView
 
 		/* Button delete, kann sich auf mehrere Datensaetze beziehen, daher leistungsarten */
 		JToolBarHelper::deleteList('Fakturierungsläufe löschen und Referenzen auf Leistungspositionen zurücksetzen?', 'billruns.delete', 'JTOOLBAR_DELETE');
+
+        if (SrmInkassoHelper::canDo('core.admin')){
+            JToolBarHelper::preferences('com_srminkasso');
+        }
 	}
 
 }

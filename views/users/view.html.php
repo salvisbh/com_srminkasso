@@ -93,6 +93,10 @@ class SrmInkassoViewUsers extends JView
 
 		/* Button editList;  Ein Datensatz, daher Controller leistungsart, task edit */
 //		JToolBarHelper::editList('bill.edit', 'JTOOLBAR_EDIT');
+
+        if (SrmInkassoHelper::canDo('core.admin')) {
+            JToolBarHelper::preferences('com_srminkasso');
+        }
 	}
 
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<access component="com_srminkasso">
+    <section name="component">
+        <action name="core.manage" title="Administrationszugriff" description="Zugriff auf die Komponente im Backend" />
+        <action name="core.admin" title="Konfigurieren" description="Mutieren der Modulkonfiguration" />
+    </section>
+</access>

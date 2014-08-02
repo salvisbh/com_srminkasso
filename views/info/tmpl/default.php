@@ -1,7 +1,3 @@
-<?php
-JToolBarHelper::title(JText::_('Infos zum Leistungsverrechnungsmodul'));
-?>
-
 <table>
     <tr>
         <td >

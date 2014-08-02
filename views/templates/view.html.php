@@ -72,6 +72,10 @@ class SrmInkassoViewTemplates extends JView
 
 		/* Button delete, kann sich auf mehrere Datensaetze beziehen, daher leistungsarten */
 		JToolBarHelper::deleteList('Template löschen?', 'templates.delete', 'JTOOLBAR_DELETE');
+
+        if (SrmInkassoHelper::canDo('core.admin')) {
+            JToolBarHelper::preferences('com_srminkasso');
+        }
 	}
 
 }

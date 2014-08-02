@@ -71,5 +71,15 @@ class SrmInkassoHelper {
         
     }
 
+    /**
+     * Prueft, ob fuer der aktuelle Nutzer fuer eine in access.xml definierte Funktion die Berechtigung hat.
+     * @param $action
+     * @return mixed
+     */
+    public static function canDo($action){
+
+        $canDo = JFactory::getUser()->authorise($action, 'com_srminkasso');
+        return $canDo;
+    }
 
 }

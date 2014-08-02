@@ -80,6 +80,9 @@ class SrmInkassoViewLeistungsarts extends JView
 		/* Button delete, kann sich auf mehrere Datensaetze beziehen, daher leistungsarten */
 		JToolBarHelper::deleteList('Leistungsarten loeschen?', 'leistungsarts.delete', 'JTOOLBAR_DELETE');
 
+        if (SrmInkassoHelper::canDo('core.admin')) {
+            JToolBarHelper::preferences('com_srminkasso');
+        }
 	}
 
 }
