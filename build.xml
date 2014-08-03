@@ -2,7 +2,7 @@
 
 <project name="com_srminkasso" default="dist">
 
-    <property name="version"  value="0.0.7" override="true" />
+    <property name="version"  value="1.0.1" override="true" />
     <property name="buildDir"  value="./build" override="true" />
     <property name="adminDir"  value="${buildDir}/admin" override="true" />
 
@@ -45,6 +45,8 @@
         <echo msg="Copying admin files to admin directory..." />
         <copy file="./srminkasso.php" tofile="${adminDir}/srminkasso.php" />
         <copy file="./controller.php" tofile="${adminDir}/controller.php" />
+        <copy file="./access.xml" tofile="${adminDir}/access.xml" />
+        <copy file="./config.xml" tofile="${adminDir}/config.xml" />
 
         <echo msg="Copying assets files to admin directory..." />
         <copy todir="${adminDir}/assets">

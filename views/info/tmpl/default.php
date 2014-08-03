@@ -49,11 +49,11 @@
                     </tr>
                     <tr>
                         <td>Version:</td>
-                        <td>%%version%%</td>
+                        <td>1.0.0</td>
                     </tr>
                     <tr>
                         <td>Build-Datum:</td>
-                        <td>%%builddate%%</td>
+                        <td>03.08.2014 01:07</td>
                     </tr>
                 </table>
             </div>
