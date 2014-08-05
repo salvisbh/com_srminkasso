@@ -107,11 +107,18 @@ class UserFakturaHelper {
             $posPdf['datum'] = FormatHelper::formatDate($pos->datum);
             $posPdf['position'] = $pos->titel;
 
+            //Individueller Kommentar vorhanden?
             if(! is_null($pos->kommentar) && strlen($pos->kommentar) > 0){
                 $posPdf['kommentar'] = '<br>' . $pos->kommentar;
             }
             else{
-                $posPdf['kommentar']='';
+                //Falls nein: Beschreibung auf Leistung?
+                if(!is_null($pos->beschreibung) && strlen($pos->beschreibung) > 0){
+                    $posPdf['kommentar'] = '<br>' . $pos->beschreibung;
+                }else{
+                    //Nein: Keine Zweitzeile
+                    $posPdf['kommentar']='';
+                }
             }
 
             if($pos->individual_preis > 0){

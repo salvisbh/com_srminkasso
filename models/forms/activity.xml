@@ -48,8 +48,8 @@
 		<field
         	name="beschreibung"
         	type="textarea"
-        	label="Beschreibung"
-        	description="Zusätzliche Beschreibung"
+        	label="Kommentar"
+        	description="Kommentar zur Leistung"
 			rows="4"
 			cols="50" />
 

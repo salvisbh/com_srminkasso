@@ -42,7 +42,7 @@
 
         <field name="kommentar"
                type="textarea"
-               label="Kommentar" description="Individueller Kommentar für Empfänger"
+               label="Individual-Kommentar" description="Individueller Kommentar für Empfänger"
                rows="10"
                cols="5"
                filter="raw" />
