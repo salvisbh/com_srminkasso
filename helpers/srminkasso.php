@@ -82,4 +82,18 @@ class SrmInkassoHelper {
         return $canDo;
     }
 
+    public static function getYesNoStateArray(){
+
+        $no = new stdClass();
+        $no->id = 0;
+        $no->status = "nein";
+
+        $yes = new stdClass();
+        $yes->id = 1;
+        $yes->status = "ja";
+
+        $ret = array($no,$yes);
+        return $ret;
+    }
+
 }

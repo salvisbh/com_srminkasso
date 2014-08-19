@@ -22,6 +22,8 @@ $listOrder = $this->escape($this->state->get('list.ordering'));
 /* Die Sortierrichtung - aufsteigend oder absteigend */
 $listDirn = $this->escape($this->state->get('list.direction'));
 
+$leistungsStatus = $this->leistungsStatus;
+
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_srminkasso&view=activities'); ?>"
@@ -48,7 +50,13 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 				<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)"/>
 			</th>
 
-            <th width="5%"><?php echo JHtml::_('grid.sort', 'Archiviert', 'archiviert', $listDirn, $listOrder); ?></th>
+            <th width="5%"><?php echo JHtml::_('grid.sort', 'Archiviert', 'archiviert', $listDirn, $listOrder); ?>
+                <br/>
+                <select name="filter_leistungsstatus_id" class="inputbox" onchange="this.form.submit()">
+                    <option value="-1"><?php echo JText::_('- alle -');?></option>
+                    <?php echo JHTML::_('select.options', $leistungsStatus, 'id', 'status', $this->state->get('filter.leistungsstatus_id'));?>
+                </select>
+            </th>
 			<th width="15%"><?php echo JHtml::_('grid.sort', 'Datum', 'datum', $listDirn, $listOrder); ?></th>
 			<th width="45%"><?php echo JHtml::_('grid.sort', 'Titel', 'titel', $listDirn, $listOrder); ?></th>
 			<th width="5%"><?php echo JHtml::_('grid.sort', 'Preis', 'preis', $listDirn, $listOrder); ?></th>

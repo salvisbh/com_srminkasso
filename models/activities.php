@@ -11,6 +11,7 @@
  */
 defined('_JEXEC') or die;
 jimport('joomla.application.component.modellist');
+JLoader::register('SrmInkassoHelper', JPATH_COMPONENT . '/helpers/srminkasso.php');
 
 /**
  * Erweiterung der Klasse JModelList, abgeleitet von JModel
@@ -49,7 +50,14 @@ class SrmInkassoModelActivities extends JModelList
 	
 		/* Suchbegriff fuer diese Ausgabe setzen */
 		$this->setState('filter.search', $search);
-	
+
+        /* leistungsstatus in State Objekt legen, default auf 'nicht archiviert' setzen*/
+        $leistungsStatusId = $this->getUserStateFromRequest($this->context.'.filter.leistungsstatus_id', 'filter_leistungsstatus_id', '');
+        if(!is_numeric($leistungsStatusId)){
+            $leistungsStatusId = 0; //Status nicht archiviert
+        }
+        $this->setState('filter.leistungsstatus_id', $leistungsStatusId);
+
 		/* Sortieren wird netterweise von der Elternklasse übernommen */
 		parent::populateState($ordering, $direction);
 	}
@@ -64,7 +72,8 @@ class SrmInkassoModelActivities extends JModelList
 	protected function getStoreId($id = '')
 	{
 		$id	.= ':'.$this->getState('filter.search');
-	
+        $id .= ':'.$this->getState('filter.leistungsstatus_id');
+
 		return parent::getStoreId($id);
 	}
 	
@@ -97,7 +106,14 @@ class SrmInkassoModelActivities extends JModelList
     	
     	$query->where('titel LIKE ' .$s );
     }
-    
+
+      /* auswahl des anwenders im LeistungsStatusfilter ermitteln */
+      $leistungsStatusId = $this->getState('filter.leistungsstatus_id');
+      if(is_numeric($leistungsStatusId) && $leistungsStatusId > -1){
+          //archiviert oder nicht archiviert setzen
+          $query->where('l.archiviert='.(int)$leistungsStatusId);
+      }
+
     /* Abfrage um die Sortierangaben ergaenzen, Standardwert ist angegeben */
     $sort  = $this->getState('list.ordering', 'datum');
     $order = $this->getState('list.direction', 'DESC');
@@ -107,4 +123,10 @@ class SrmInkassoModelActivities extends JModelList
     /* Fertig ist die Abfrage */
     return $query;
   }
+
+    public function getLeistungsStatus(){
+
+        $state= SrmInkassoHelper::getYesNoStateArray();
+        return $state;
+    }
 }

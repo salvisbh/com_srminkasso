@@ -38,6 +38,12 @@ class SrmInkassoViewActivities extends JView
     protected $state;
 
     /**
+     * Status auf der Aktivitaet zum Filtern nach Archivierungsstatus.
+     * @var
+     */
+    protected $leistungsStatus;
+
+    /**
      * Überschreiben der Methode display
      *
      * @param string $tpl Alternative Layoutdatei, leer = 'default'
@@ -55,6 +61,9 @@ class SrmInkassoViewActivities extends JView
 
         /* Daten fuer die Blaetterfunktion  */
         $this->pagination = $this->get('Pagination');
+
+        /* Leistungsstatus fuer Filter holen, ruft getLeistungsStatus im Model*/
+        $this->leistungsStatus = $this->get('leistungsStatus');
 
         /* Aufnbau der Toolbar */
         $this->addToolbar();
