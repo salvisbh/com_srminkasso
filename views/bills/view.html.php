@@ -44,6 +44,12 @@ class SrmInkassoViewBills extends JView
     protected $fakturaStatus;
 
     /**
+     * Liste der nicht archivierten Rechnungslaeufe zur Filterung.
+     * @var
+     */
+    protected $abrechnungen;
+
+    /**
      * Überschreiben der Methode display
      *
      * @param string $tpl Alternative Layoutdatei, leer = 'default'
@@ -64,6 +70,9 @@ class SrmInkassoViewBills extends JView
 
         /* Fakturastatus fuer Filter holen, ruft getFakturaStatus im Model*/
         $this->fakturaStatus = $this->get("fakturaStatus");
+
+        /* nicht archivierte Abrechnungen fuer Filter holen, ruft getAbrechnungen im Model */
+        $this->abrechnungen = $this->get("abrechnungen");
 
         /* Aufnbau der Toolbar */
         $this->addToolbar();

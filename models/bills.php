@@ -59,6 +59,13 @@ class SrmInkassoModelBills extends JModelList
 
         $this->setState('filter.fakturastatus_id', $fakturaStatusId);
 
+        $billrunId = $this->getUserStateFromRequest($this->context.'.filter.billrun_id', 'filter_billrun_id', '');
+        if(!is_numeric($billrunId)){
+            $billrunId = 0;
+        }
+
+        $this->setState('filter.billrun_id', $billrunId);
+
 		/* Sortieren wird netterweise von der Elternklasse übernommen */
 		parent::populateState($ordering, $direction);
 	}
@@ -74,6 +81,7 @@ class SrmInkassoModelBills extends JModelList
 	{
 		$id	.= ':'.$this->getState('filter.search');
         $id .= ':'.$this->getState('filter.fakturastatus_id');
+        $id .= ':'.$this->getState('filter.billrun_id');
 	
 		return parent::getStoreId($id);
 	}
@@ -83,6 +91,21 @@ class SrmInkassoModelBills extends JModelList
         $tblStatus = SrmInkassoTableStates::getInstance();
         $fakturaStatusListe = $tblStatus->getStatus(2);
         return $fakturaStatusListe;
+    }
+
+    public function getAbrechnungen(){
+
+        $db	= $this->getDbo();
+        $query	= $db->getQuery(true);
+
+        $select = "id,concat(titel,' (', datum, ')') titel";
+        $query->select($select)->from('#__srmink_fakturierungen f');
+        $query->where('f.fk_Fakturastatus <> 3'); //nur nicht archivierte Rechnungslaeufe
+        $query->order('f.datum DESC');
+
+        $db->setQuery($query);
+        $result = $db->loadObjectList();
+        return $result;
     }
 
   /**
@@ -152,6 +175,12 @@ EOD;
       $fakturaStatusId = $this->getState('filter.fakturastatus_id');
       if(is_numeric($fakturaStatusId) && $fakturaStatusId > 0){
           $query->where('f.status='.(int)$fakturaStatusId);
+      }
+
+      /* auswahl des anwenders im Billrun-Filter ermitteln */
+      $billrunId = $this->getState('filter.billrun_id');
+      if(is_numeric($billrunId) && $billrunId > 0){
+          $query->where('f.fk_faktura='.(int)$billrunId);
       }
 
     /* Abfrage um die Sortierangaben ergaenzen, Standardwert ist angegeben */

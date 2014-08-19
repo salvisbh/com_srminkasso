@@ -23,6 +23,7 @@ $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
 
 $fakturaStatus = $this->fakturaStatus;
+$abrechnungen = $this->abrechnungen;
 
 ?>
 
@@ -55,7 +56,13 @@ $fakturaStatus = $this->fakturaStatus;
 			<th width="15%"><?php echo JHtml::_('grid.sort', 'Name', 'name', $listDirn, $listOrder); ?></th>
 			<th width="10%"><?php echo JHtml::_('grid.sort', 'Vorname', 'vorname', $listDirn, $listOrder); ?></th>
 			<th width="10%"><?php echo JHtml::_('grid.sort', 'Ort', 'ort', $listDirn, $listOrder); ?></th>
-			<th width="10%"><?php echo JHtml::_('grid.sort', 'Titel', 'titel', $listDirn, $listOrder); ?></th>
+			<th width="10%"><?php echo JHtml::_('grid.sort', 'Titel', 'titel', $listDirn, $listOrder); ?>
+                <br/>
+                <select name="filter_billrun_id" class="inputbox" onchange="this.form.submit()">
+                    <option value="0"><?php echo JText::_('- Alle Rechnungsläufe -');?></option>
+                    <?php echo JHTML::_('select.options', $abrechnungen, 'id', 'titel', $this->state->get('filter.billrun_id'));?>
+                </select>
+            </th>
             <th width="5%"><?php echo JHtml::_('grid.sort', 'Betrag', 'betrag', $listDirn, $listOrder); ?></th>
             <th width="10%"><?php echo JHtml::_('grid.sort', 'Aktionen', 'aktionen', $listDirn, $listOrder); ?></th>
             <th width="5%"><?php echo JHtml::_('grid.sort', 'Status', 'status', $listDirn, $listOrder); ?>
