@@ -68,7 +68,7 @@ $abrechnungen = $this->abrechnungen;
             <th width="5%"><?php echo JHtml::_('grid.sort', 'Status', 'status', $listDirn, $listOrder); ?>
                 <br/>
                 <select name="filter_fakturastatus_id" class="inputbox" onchange="this.form.submit()">
-                    <option value="0"><?php echo JText::_('- Alle Status -');?></option>
+                    <option value="0"><?php echo JText::_('- Alle -');?></option>
                     <?php echo JHTML::_('select.options', $fakturaStatus, 'id', 'status', $this->state->get('filter.fakturastatus_id'));?>
                 </select>
             </th>
@@ -102,7 +102,26 @@ $abrechnungen = $this->abrechnungen;
                     <img src='components/com_srminkasso/assets/images/icon-16-print.png'
                          title="Rechnung als PDF anzeigen"></a>
             </td>
-            <td><?php echo $this->escape($item->status); ?></td>
+            <td align="center">
+                <?php if($item->statusId == 4){
+                    $cssClass="state unpublish";
+                    $task='bills.changeStateToPaid';
+                    $msg='Offen, Status auf bezahlt setzen';
+                }elseif($item->statusId == 5){
+                    $cssClass="state publish";
+                    $task='bills.changeStateToOpen';
+                    $msg='Bezahlt, Status auf offen zurücksetzen';
+                }elseif($item->statusId == 6){
+                    $cssClass="state trash";
+                    $task='';
+                    $msg='Storniert. Kann nur über Editieren der Rechnung (Klick auf Id) reaktiviert werden';
+                }
+                echo '<span class="' .$cssClass .'"/>';
+                ?>
+                <a class="jgrid" href="javascript:void(0)" onclick="return listItemTask('cb<?php print $i;?>','<?php print $task;?>')" title="<?php print $msg;?>">
+                    <span class="<?php print $cssClass;?>"/>';
+                </a>
+            </td>
             <td><?php echo $this->escape($item->fdatum); ?></td>
             <td><?php echo $this->escape($item->zdatum); ?></td>
 		</tr>

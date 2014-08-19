@@ -17,6 +17,8 @@ defined('_JEXEC') or die;
 class SrmInkassoTableBills extends JTable
 {
     public static $STATUS_OFFEN=4;
+    public static $STATUS_BEZAHLT=5;
+    public static $STATUS_STORNIERT=6;
 
     /**
      * Gibt eine Instanz eines Tabellenobjekts zurueck.
@@ -116,6 +118,38 @@ class SrmInkassoTableBills extends JTable
     }
 
     /**
+     * Setzt den Status der UserBill zurueck auf offen. Das Datum wird auf null gesetzt.
+     * @param $userFakturaId
+     */
+    public function setUserFakturaStateToOpen($userFakturaId){
+
+        $fields = array(
+            'status=' . self::$STATUS_OFFEN,
+            'zahlungsdatum=NULL'
+        );
+
+        self::writeToDb($fields,$userFakturaId);
+    }
+
+    public function setUserFakturaStateToBezahlt($userFakturaId){
+
+        $fields = array(
+            'status=' . self::$STATUS_BEZAHLT,
+            'zahlungsdatum=CURDATE()'
+        );
+
+        self::writeToDb($fields,$userFakturaId);
+    }
+
+    private function writeToDb($fields,$userFakturaId){
+        $db	= $this->getDbo();
+        $query	= $db->getQuery(true);
+        $query->update($this->getTableName())->set($fields)->where('id=' .$userFakturaId);
+        $db->setQuery($query);
+        $result = $db->query();
+        return $result;
+    }
+    /**
      * Positioniert auf UserFaktura fuer einen bestimmten Rechnungslauf.
      * @param $userid die UserID
      * @param $billId die ID des Rechnungslaufes
@@ -143,6 +177,10 @@ class SrmInkassoTableBills extends JTable
 
     }
 
+    /**
+     * @param $fakturaItem
+     * @return bool
+     */
     public function updateUserFakturaForBill($fakturaItem){
         $db	= $this->getDbo();
         $result = $db->updateObject($this->getTableName(),$fakturaItem,$this->getKeyName());

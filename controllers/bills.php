@@ -33,5 +33,53 @@ class SrmInkassoControllerBills extends JControllerAdmin
     return parent::getModel($name, $prefix, $config);
   }
 
+    /**
+     * Setzt den Rechnungsstatus von offen auf bezahlt
+     */
+    public function changeStateToPaid(){
+        $cid = JRequest::getVar('cid', array(), '', 'array');
+        self::changeBillState($cid[0],5);
+    }
 
+    /**
+     * Setzt den Rechnungsstatus von bezahlt auf offen zurueck
+     */
+    public function changeStateToOpen(){
+        $cid = JRequest::getVar('cid', array(), '', 'array');
+        self::changeBillState($cid[0],4);
+    }
+
+    public function changeBillState($userBillId,$newState){
+
+        // Get the model.
+        $model = $this->getModel();
+
+        /** @var $tblBills SrmInkassoTableBills */
+        $tblBills = $model->getTable();
+
+        switch($newState){
+            case 4:
+                $tblBills->setUserFakturaStateToOpen($userBillId);
+                break;
+            case 5:
+                $tblBills->setUserFakturaStateToBezahlt($userBillId);
+                break;
+        }
+
+        //Meldungstext basteln
+        $arr = array(
+            4 => "offen",
+            5 => "bezahlt",
+        );
+
+        $msg = 'Rechnung ' . $userBillId . ' - neuer Status: ' . $arr[$newState];
+
+        self::redirectToList($msg);
+    }
+
+    function redirectToList($msg){
+        $this->setMessage($msg);
+        $strRedirect = 'index.php?option=' . $this->option . '&view=' . $this->view_list;
+        $this->setRedirect(JRoute::_($strRedirect, false));
+    }
 }

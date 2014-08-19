@@ -133,6 +133,7 @@ class SrmInkassoModelBills extends JModelList
         fl.titel,
         fl.datum,
         fl.faellig as fdatum,
+        f.status statusId,
         s.status,
         cb.user_id as fk_userId,
         cb.lastname as name,

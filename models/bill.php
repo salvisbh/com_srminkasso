@@ -23,7 +23,7 @@ class SrmInkassoModelBill extends JModelAdmin
    * Methode getTable überschreiben (JModel), um ein
    * Objekt für unsere Tabelle `billruns` zu instanziieren.
    *
-   * @return SrmInkassoTableBillRuns
+   * @return SrmInkassoTableBills
    */
   public function getTable($type = 'bills', $prefix = 'SrmInkassoTable', $config = array())
   {
